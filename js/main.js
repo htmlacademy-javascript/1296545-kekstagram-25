@@ -5,3 +5,13 @@ function getRandomInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 getRandomInt(2, 5);
+
+
+function maxStrLength(str, maxLetngth) {
+  if (str.length <= maxLetngth){
+    return true;
+  }
+  return false;
+}
+
+maxStrLength('Hello man', 9);
