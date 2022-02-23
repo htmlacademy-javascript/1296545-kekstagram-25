@@ -7,5 +7,5 @@ const getRandomInt = (min, max) => {
 getRandomInt(2, 5);
 
 
-const checkStringLength = (str, maxLetngth) => str.length <= maxLetngth;
+const checkStringLength = (str, maxLength) => str.length <= maxLength;
 checkStringLength('Hello man', 9);
