@@ -7,11 +7,7 @@ function getRandomInt (min, max) {
 getRandomInt(2, 5);
 
 
-function maxStrLength(str, maxLetngth) {
-  if (str.length <= maxLetngth){
-    return true;
-  }
-  return false;
-}
+const checkStringLength = (str, maxLetngth) => str.length <= maxLetngth;
 
-maxStrLength('Hello man', 9);
+
+checkStringLength('Hello man', 9);
