@@ -32,3 +32,18 @@ const createArr = (n) => {
 console.log(createArr(25));
 
 
+const SIMILAR_ANNOUNCEMENT_COUNT = 10;
+
+const createRandomAnnouncement = (_elem, id) => ({
+  id: String(++id).padStart(2, '0'),
+  avatar: 'img/avatar-'+ getRandomInt(1, 6).toString() + '.svg',
+  message: 'В целом всё неплохо. Но не всё.',
+  name: 'Артём',
+});
+
+console.log(
+  Array.from({
+    length: SIMILAR_ANNOUNCEMENT_COUNT,
+  }, createRandomAnnouncement),
+);
+
