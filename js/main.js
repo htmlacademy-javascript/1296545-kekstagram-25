@@ -29,7 +29,7 @@ const ARRAY_TEXT_COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const UREY_USER_NAME = [
+const USERS_NAMES = [
   'Мария',
   'Светлана',
   'Сергей',
@@ -52,7 +52,7 @@ const createRandomAnnouncement = (_elem, id) => ({
   id: String(++id).padStart(2, '0'),
   avatar: 'img/avatar-'+ getRandomInt(1, 6).toString() + '.svg',
   message: ARRAY_TEXT_COMMENTS[getRandomInt(0, 6)],
-  name: UREY_USER_NAME[getRandomInt(0, 8)],
+  name: USERS_NAMES[getRandomInt(0, 8)],
 });
 
 const accepFoto = (n) => 'photos/' + n.toString() + '.jpg';
