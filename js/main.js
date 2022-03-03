@@ -59,12 +59,13 @@ const generatOb = (obId) => {
   };
   return obKeks;
 };
+
 const  NUMBER_PHOTO_OBJECTS = 10;
 const creatingDescriptionPhotos = (n) => {
-  const arr1 = [];
+  const descriptionPhotos = [];
   for (let i = 0; i <= n; i++) {
-    arr1[i] = generatOb(i + 1);
+    descriptionPhotos[i] = generatOb(i + 1);
   };
-  return arr1;
+  return descriptionPhotos;
 };
 creatingDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
