@@ -63,9 +63,9 @@ const generatOb = (obId) => {
 const  NUMBER_PHOTO_OBJECTS = 10;
 const creatingDescriptionPhotos = (n) => {
   const descriptionPhotos = [];
-  for (let i = 0; i <= n; i++) {
-    descriptionPhotos[i] = generatOb(i + 1);
-  };
+  for (let i = 1; i <= n; i++) {
+descriptionPhotos.push(generatOb(i));
+};
   return descriptionPhotos;
 };
 creatingDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
