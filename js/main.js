@@ -38,7 +38,7 @@ const PHOTO_DESCRIPTION = [
   'Мне понравилась фотография, потому что она (четко передает чувства, эмоции, атмосферу).',
 ];
 
-const createRandomAnnouncement = (_elem, id) => ({
+const creatRandomComment = (_elem, id) => ({
   id: String(++id).padStart(2, '0'),
   avatar: 'img/avatar-'+ getRandomInt(1, 6).toString() + '.svg',
   message: ARRAY_TEXT_COMMENTS[getRandomInt(0, 6)],
@@ -55,7 +55,7 @@ const generatOb = (obId) => {
     likes:getRandomInt(15, 20),
     comments: Array.from({
       length: getRandomInt(1, 6),
-    }, createRandomAnnouncement),
+    }, creatRandomComment),
   };
   return obKeks;
 };
