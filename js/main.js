@@ -40,12 +40,12 @@ const PHOTO_DESCRIPTION = [
 
 const creatRandomComment = (_elem, id) => ({
   id: String(++id).padStart(2, '0'),
-  avatar: 'img/avatar-'+ getRandomInt(1, 6).toString() + '.svg',
+  avatar: `img/avatar/${getRandomInt(1, 6).toString()}.svg`,
   message: ARRAY_TEXT_COMMENTS[getRandomInt(0, 6)],
   name: USERS_NAMES[getRandomInt(0, 8)],
 });
 
-const accepFoto = (n) => 'photos/' + n.toString() + '.jpg';
+const accepFoto = (n) => `photos/${n.toString()}.jpg`;
 
 const generatOb = (obId) => {
   const obKeks = {
