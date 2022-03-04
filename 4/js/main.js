@@ -9,16 +9,6 @@ getRandomInt(2, 5);
 
 const checkStringLength = (str, maxLength) => str.length <= maxLength;
 checkStringLength('Hello man', 9);
-const getRandomInt = (min, max) => {
-  if (min < 0 || min === max || min > max){
-    throw new Error('Переданные числа некорректны');
-  }
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-getRandomInt(2, 5);
-
-const checkStringLength = (str, maxLength) => str.length <= maxLength;
-checkStringLength('Hello man', 9);
 
 const ARRAY_TEXT_COMMENTS = [
   'Всё отлично!',
@@ -29,7 +19,7 @@ const ARRAY_TEXT_COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const UREY_USER_NAME = [
+const USERS_NAMES = [
   'Мария',
   'Светлана',
   'Сергей',
@@ -48,14 +38,14 @@ const PHOTO_DESCRIPTION = [
   'Мне понравилась фотография, потому что она (четко передает чувства, эмоции, атмосферу).',
 ];
 
-const createRandomAnnouncement = (_elem, id) => ({
+const creatRandomComment = (id) => ({
   id: String(++id).padStart(2, '0'),
-  avatar: 'img/avatar-'+ getRandomInt(1, 6).toString() + '.svg',
+  avatar: `img/avatar/${getRandomInt(1, 6).toString()}.svg`,
   message: ARRAY_TEXT_COMMENTS[getRandomInt(0, 6)],
-  name: UREY_USER_NAME[getRandomInt(0, 8)],
+  name: USERS_NAMES[getRandomInt(0, 8)],
 });
 
-const accepFoto = (n) => 'photos/' + n.toString() + '.jpg';
+const accepFoto = (n) => `photos/${n.toString()}.jpg`;
 
 const generatOb = (obId) => {
   const obKeks = {
@@ -65,16 +55,17 @@ const generatOb = (obId) => {
     likes:getRandomInt(15, 20),
     comments: Array.from({
       length: getRandomInt(1, 6),
-    }, createRandomAnnouncement),
+    }, creatRandomComment),
   };
   return obKeks;
 };
 
-const createArr = (n) => {
-  const arr1 = [];
-  for (let i = 0; i <= n; i++) {
-    arr1[i] = generatOb(i + 1);
-  };
-  return arr1;
+const  NUMBER_PHOTO_OBJECTS = 10;
+const creatingDescriptionPhotos = (n) => {
+  const descriptionPhotos = [];
+  for (let i = 1; i <= n; i++) {
+descriptionPhotos.push(generatOb(i));
 };
-console.log(createArr(10));
+  return descriptionPhotos;
+};
+creatingDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
