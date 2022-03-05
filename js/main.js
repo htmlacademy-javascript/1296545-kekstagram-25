@@ -48,7 +48,7 @@ const creatRandomComment = (_elem,id) => ({
 const gettingPathPhoto = (n) => `photos/${n.toString()}.jpg`;
 
 const creatingObjectsDescriptionPhoto = (obId) => {
-  const obKeks = {
+  const obFoto = {
     id:obId,
     url:gettingPathPhoto(obId),
     description: PHOTO_DESCRIPTION[getRandomInt(0, 3)],
@@ -57,7 +57,7 @@ const creatingObjectsDescriptionPhoto = (obId) => {
       length: getRandomInt(1, 6),
     }, creatRandomComment),
   };
-  return obKeks;
+  return obFoto;
 };
 
 const  NUMBER_PHOTO_OBJECTS = 10;
