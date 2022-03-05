@@ -46,6 +46,8 @@ const createRandomComment = (_elem,id) => ({
   name: USERS_NAMES[getRandomInt(0, 8)],
 });
 
+const  NUMBER_PHOTO_OBJECTS = 10;
+
 const getPathPhoto = (n) => `photos/${n.toString()}.jpg`;
 
 const createObjectsDescriptionPhoto = (obId) => {
@@ -62,12 +64,11 @@ const createObjectsDescriptionPhoto = (obId) => {
   return obPhoto;
 };
 
-const  NUMBER_PHOTO_OBJECTS = 10;
 const createDescriptionPhotos = (n) => {
   const descriptionPhotos = [];
   for (let i = 1; i <= n; i++) {
     descriptionPhotos.push(createObjectsDescriptionPhoto(i));
-  };
+  }
   return descriptionPhotos;
 };
 createDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
