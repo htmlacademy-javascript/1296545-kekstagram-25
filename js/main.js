@@ -38,20 +38,20 @@ const PHOTO_DESCRIPTION = [
   'Мне понравилась фотография, потому что она (четко передает чувства, эмоции, атмосферу).',
 ];
 
-const creatRandomComment = (id) => ({
+const creatRandomComment = (_elem,id) => ({
   id: String(++id).padStart(2, '0'),
   avatar: `img/avatar/${getRandomInt(1, 6).toString()}.svg`,
   message: ARRAY_TEXT_COMMENTS[getRandomInt(0, 6)],
   name: USERS_NAMES[getRandomInt(0, 8)],
 });
 
-const accepFoto = (n) => `photos/${n.toString()}.jpg`;
+const gettingPathPhoto = (n) => `photos/${n.toString()}.jpg`;
 
-const generatOb = (obId) => {
+const creatingObjectsDescriptionPhoto = (obId) => {
   const obKeks = {
     id:obId,
-    url:accepFoto(obId),
-    description: PHOTO_DESCRIPTION[getRandomInt(0, 4)],
+    url:gettingPathPhoto(obId),
+    description: PHOTO_DESCRIPTION[getRandomInt(0, 3)],
     likes:getRandomInt(15, 20),
     comments: Array.from({
       length: getRandomInt(1, 6),
@@ -64,8 +64,9 @@ const  NUMBER_PHOTO_OBJECTS = 10;
 const creatingDescriptionPhotos = (n) => {
   const descriptionPhotos = [];
   for (let i = 1; i <= n; i++) {
-descriptionPhotos.push(generatOb(i));
-};
+    descriptionPhotos.push(creatingObjectsDescriptionPhoto (i));
+  };
   return descriptionPhotos;
 };
-creatingDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
+console.log(creatingDescriptionPhotos(NUMBER_PHOTO_OBJECTS));
+
