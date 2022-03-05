@@ -39,36 +39,36 @@ const PHOTO_DESCRIPTION = [
 ];
 
 
-const creatRandomComment = (_elem,id) => ({
+const createRandomComment = (_elem,id) => ({
   id: String(++id).padStart(2, '0'),
   avatar: `img/avatar/${getRandomInt(1, 6).toString()}.svg`,
   message: ARRAY_TEXT_COMMENTS[getRandomInt(0, 6)],
   name: USERS_NAMES[getRandomInt(0, 8)],
 });
 
-const gettingPathPhoto = (n) => `photos/${n.toString()}.jpg`;
+const getPathPhoto = (n) => `photos/${n.toString()}.jpg`;
 
-const creatingObjectsDescriptionPhoto = (obId) => {
-  const NUMBER_COMMENTS = getRandomInt(1, 6);
-  const obFoto = {
+const createObjectsDescriptionPhoto = (obId) => {
+  const NunberComments = getRandomInt(1, 6);
+  const obPhoto = {
     id:obId,
-    url:gettingPathPhoto(obId),
+    url:getPathPhoto(obId),
     description: PHOTO_DESCRIPTION[getRandomInt(0, 3)],
     likes:getRandomInt(15, 200),
     comments: Array.from({
-      length: NUMBER_COMMENTS,
-    }, creatRandomComment),
+      length: NunberComments,
+    }, createRandomComment),
   };
-  return obFoto;
+  return obPhoto;
 };
 
 const  NUMBER_PHOTO_OBJECTS = 10;
-const creatingDescriptionPhotos = (n) => {
+const createDescriptionPhotos = (n) => {
   const descriptionPhotos = [];
   for (let i = 1; i <= n; i++) {
-    descriptionPhotos.push(creatingObjectsDescriptionPhoto (i));
+    descriptionPhotos.push(createObjectsDescriptionPhoto(i));
   };
   return descriptionPhotos;
 };
-creatingDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
+createDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
 
