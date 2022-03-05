@@ -38,6 +38,7 @@ const PHOTO_DESCRIPTION = [
   'Мне понравилась фотография, потому что она (четко передает чувства, эмоции, атмосферу).',
 ];
 
+
 const creatRandomComment = (_elem,id) => ({
   id: String(++id).padStart(2, '0'),
   avatar: `img/avatar/${getRandomInt(1, 6).toString()}.svg`,
@@ -48,13 +49,14 @@ const creatRandomComment = (_elem,id) => ({
 const gettingPathPhoto = (n) => `photos/${n.toString()}.jpg`;
 
 const creatingObjectsDescriptionPhoto = (obId) => {
+  const NUMBER_COMMENTS = getRandomInt(1, 6);
   const obFoto = {
     id:obId,
     url:gettingPathPhoto(obId),
     description: PHOTO_DESCRIPTION[getRandomInt(0, 3)],
     likes:getRandomInt(15, 200),
     comments: Array.from({
-      length: getRandomInt(1, 6),
+      length: NUMBER_COMMENTS,
     }, creatRandomComment),
   };
   return obFoto;
