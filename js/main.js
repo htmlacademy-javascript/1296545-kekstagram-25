@@ -52,7 +52,7 @@ const creatingObjectsDescriptionPhoto = (obId) => {
     id:obId,
     url:gettingPathPhoto(obId),
     description: PHOTO_DESCRIPTION[getRandomInt(0, 3)],
-    likes:getRandomInt(15, 20),
+    likes:getRandomInt(15, 200),
     comments: Array.from({
       length: getRandomInt(1, 6),
     }, creatRandomComment),
@@ -68,5 +68,5 @@ const creatingDescriptionPhotos = (n) => {
   };
   return descriptionPhotos;
 };
-console.log(creatingDescriptionPhotos(NUMBER_PHOTO_OBJECTS));
+creatingDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
 
