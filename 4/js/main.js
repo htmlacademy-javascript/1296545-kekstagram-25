@@ -47,7 +47,7 @@ const createRandomComment = (_elem,id) => ({
   name: getRandomArrayElement(USERS_NAMES),
 });
 
-const  NUMBER_PHOTO_OBJECTS = 10;
+const  NUMBER_PHOTO_OBJECTS = 25;
 
 const getPathPhoto = (n) => `photos/${n.toString()}.jpg`;
 
