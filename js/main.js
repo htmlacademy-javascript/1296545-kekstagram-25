@@ -38,12 +38,13 @@ const PHOTO_DESCRIPTION = [
   'Мне понравилась фотография, потому что она (четко передает чувства, эмоции, атмосферу).',
 ];
 
+const getRandomArrayElement = (array) => array[getRandomInt(0, array.length - 1)];
 
 const createRandomComment = (_elem,id) => ({
   id: String(++id).padStart(2, '0'),
   avatar: `img/avatar/${getRandomInt(1, 6).toString()}.svg`,
-  message: ARRAY_TEXT_COMMENTS[getRandomInt(0, 5)],
-  name: USERS_NAMES[getRandomInt(0, 8)],
+  message: getRandomArrayElement(ARRAY_TEXT_COMMENTS),
+  name: getRandomArrayElement(USERS_NAMES),
 });
 
 const  NUMBER_PHOTO_OBJECTS = 10;
@@ -71,5 +72,5 @@ const createDescriptionPhotos = (n) => {
   }
   return descriptionPhotos;
 };
-console.log(createDescriptionPhotos(NUMBER_PHOTO_OBJECTS));
+createDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
 
