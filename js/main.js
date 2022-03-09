@@ -42,7 +42,7 @@ const PHOTO_DESCRIPTION = [
 const createRandomComment = (_elem,id) => ({
   id: String(++id).padStart(2, '0'),
   avatar: `img/avatar/${getRandomInt(1, 6).toString()}.svg`,
-  message: ARRAY_TEXT_COMMENTS[getRandomInt(0, 6)],
+  message: ARRAY_TEXT_COMMENTS[getRandomInt(0, 5)],
   name: USERS_NAMES[getRandomInt(0, 8)],
 });
 
@@ -71,5 +71,5 @@ const createDescriptionPhotos = (n) => {
   }
   return descriptionPhotos;
 };
-createDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
+console.log(createDescriptionPhotos(NUMBER_PHOTO_OBJECTS));
 
