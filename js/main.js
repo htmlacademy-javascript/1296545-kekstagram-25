@@ -18,7 +18,8 @@ const ARRAY_TEXT_COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const UREY_USER_NAME = [
+
+const USERS_NAMES = [
   'Мария',
   'Светлана',
   'Сергей',
@@ -37,33 +38,40 @@ const PHOTO_DESCRIPTION = [
   'Мне понравилась фотография, потому что она (четко передает чувства, эмоции, атмосферу).',
 ];
 
-const createRandomAnnouncement = (_elem, id) => ({
+
+const getRandomArrayElement = (array) => array[getRandomInt(0, array.length - 1)];
+
+const createRandomComment = (_elem,id) => ({
   id: String(++id).padStart(2, '0'),
-  avatar: 'img/avatar-'+ getRandomInt(1, 6).toString() + '.svg',
-  message: ARRAY_TEXT_COMMENTS[getRandomInt(0, 6)],
-  name: UREY_USER_NAME[getRandomInt(0, 8)],
+  avatar: `img/avatar/${getRandomInt(1, 6).toString()}.svg`,
+  message: getRandomArrayElement(ARRAY_TEXT_COMMENTS),
+  name: getRandomArrayElement(USERS_NAMES),
 });
 
-const accepFoto = (n) => 'photos/' + n.toString() + '.jpg';
+const  NUMBER_PHOTO_OBJECTS = 25;
 
-const generatOb = (obId) => {
-  const obKeks = {
+const getPathPhoto = (n) => `photos/${n.toString()}.jpg`;
+
+const createObjectsDescriptionPhoto = (obId) => {
+  const NunberComments = getRandomInt(1, 6);
+  const obPhoto = {
     id:obId,
-    url:accepFoto(obId),
-    description: PHOTO_DESCRIPTION[getRandomInt(0, 4)],
-    likes:getRandomInt(15, 20),
+    url:getPathPhoto(obId),
+    description: PHOTO_DESCRIPTION[getRandomInt(0, 3)],
+    likes:getRandomInt(15, 200),
     comments: Array.from({
-      length: getRandomInt(1, 6),
-    }, createRandomAnnouncement),
+      length: NunberComments,
+    }, createRandomComment),
   };
-  return obKeks;
+  return obPhoto;
 };
 
-const createArr = (n) => {
-  const arr1 = [];
-  for (let i = 0; i <= n; i++) {
-    arr1[i] = generatOb(i + 1);
-  };
-  return arr1;
+const createDescriptionPhotos = (n) => {
+  const descriptionPhotos = [];
+  for (let i = 1; i <= n; i++) {
+    descriptionPhotos.push(createObjectsDescriptionPhoto(i));
+  }
+  return descriptionPhotos;
 };
-console.log(createArr(10));
+createDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
+
