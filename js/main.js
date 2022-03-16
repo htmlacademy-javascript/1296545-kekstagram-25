@@ -1,5 +1,4 @@
-import {createDescriptionPhotos} from './data.js';
+import {createDescriptionPhotos, NUMBER_PHOTO_OBJECTS} from './data.js';
 
-console.log(
-  createDescriptionPhotos()
-);
+createDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
+
