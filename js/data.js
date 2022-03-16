@@ -1,5 +1,4 @@
-import {getRandomInt,
-  checkStringLength} from './util.js';
+import {getRandomInt} from './util.js';
 
 const ARRAY_TEXT_COMMENTS = [
   'Всё отлично!',
