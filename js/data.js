@@ -63,6 +63,5 @@ const createDescriptionPhotos = (n) => {
   }
   return descriptionPhotos;
 };
-createDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
 
 export {createDescriptionPhotos};
