@@ -1,4 +1,4 @@
-import {getRandomInt} from './util.js';
+import { getRandomInt } from './util.js';
 
 const ARRAY_TEXT_COMMENTS = [
   'Всё отлично!',
@@ -30,24 +30,24 @@ const PHOTO_DESCRIPTION = [
 
 const getRandomArrayElement = (array) => array[getRandomInt(0, array.length - 1)];
 
-const createRandomComment = (_elem,id) => ({
+const createRandomComment = (_elem, id) => ({
   id: String(++id).padStart(2, '0'),
   avatar: `img/avatar/${getRandomInt(1, 6).toString()}.svg`,
   message: getRandomArrayElement(ARRAY_TEXT_COMMENTS),
   name: getRandomArrayElement(USERS_NAMES),
 });
 
-const  NUMBER_PHOTO_OBJECTS = 25;
+const NUMBER_PHOTO_OBJECTS = 25;
 
 const getPathPhoto = (n) => `photos/${n.toString()}.jpg`;
 
 const createObjectsDescriptionPhoto = (obId) => {
   const NunberComments = getRandomInt(1, 6);
   const obPhoto = {
-    id:obId,
-    url:getPathPhoto(obId),
+    id: obId,
+    url: getPathPhoto(obId),
     description: PHOTO_DESCRIPTION[getRandomInt(0, 3)],
-    likes:getRandomInt(15, 200),
+    likes: getRandomInt(15, 200),
     comments: Array.from({
       length: NunberComments,
     }, createRandomComment),
