@@ -1,4 +1,7 @@
 import {createDescriptionPhotos, NUMBER_PHOTO_OBJECTS} from './data.js';
+import {createTemplatePicture} from './thumbnail.js';
 
-createDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
+
+const images = createDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
+createTemplatePicture(images);
 
