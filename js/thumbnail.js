@@ -1,6 +1,7 @@
 export const createTemplatePicture = (images) => {
   const wrapper =  document.querySelector('#picture');
   const template = wrapper.content.querySelector('.picture');
+  const pictures = document.querySelector('.pictures');
   const fragment = document.createDocumentFragment();
 
   images.forEach((image) => {
@@ -11,5 +12,5 @@ export const createTemplatePicture = (images) => {
     fragment.appendChild(element);
   });
 
-  wrapper.appendChild(fragment);
+  pictures.appendChild(fragment);
 };
