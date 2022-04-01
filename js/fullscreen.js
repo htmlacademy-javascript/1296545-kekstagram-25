@@ -1,4 +1,4 @@
-export const fullScreen = (image) => {
+export const viewingFullScreen = (image) => {
 
   const bigPicture = document.querySelector('.big-picture');
 
