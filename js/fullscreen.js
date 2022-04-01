@@ -3,9 +3,9 @@ export const viewingFullScreen = (image) => {
   const bigPicture = document.querySelector('.big-picture');
 
   bigPicture.classList.remove('hidden');
-  bigPicture.querySelector('.big-picture__img img').src = image.url;
-  bigPicture.querySelector('.likes-count').textContent = image.likes;
-  bigPicture.querySelector('.comments-count').textContent = image.comments.length;
+  const imgBigPicture = bigPicture.querySelector('.big-picture__img img').src = image.url;
+  const likeBigPicture = bigPicture.querySelector('.likes-count').textContent = image.likes;
+  const commentBigPicture = bigPicture.querySelector('.comments-count').textContent = image.comments.length;
 
   const commentsWrapper = bigPicture.querySelector('.social__comments');
   commentsWrapper.textContent = '';
