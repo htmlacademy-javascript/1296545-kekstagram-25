@@ -1,43 +1,47 @@
+const bigPicture = document.querySelector('.big-picture');
+const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
+const likesCount = bigPicture.querySelector('.likes-count');
+const commentsCount = bigPicture.querySelector('.comments-count');
+const socialCaption = bigPicture.querySelector('.social__caption');
+const commentsWrapper = bigPicture.querySelector('.social__comments');
+const socialCommentCount = bigPicture.querySelector('.social__comment-count');
+const commentsLoader = bigPicture.querySelector('.comments-loader');
+
 export const viewingFullScreen = (image) => {
 
-  const bigPicture = document.querySelector('.big-picture');
-
   bigPicture.classList.remove('hidden');
-  const imgBigPicture = bigPicture.querySelector('.big-picture__img img').src = image.url;
-  const likeBigPicture = bigPicture.querySelector('.likes-count').textContent = image.likes;
-  const commentBigPicture = bigPicture.querySelector('.comments-count').textContent = image.comments.length;
+  bigPictureImg.src = image.url;
+  likesCount.textContent = image.likes;
+  commentsCount.textContent = image.comments.length;
 
-  const commentsWrapper = bigPicture.querySelector('.social__comments');
-  commentsWrapper.textContent = '';
+  const fragment = document.createDocumentFragment();
+  const template = document.querySelector('.social__comment');
 
   image.comments.forEach((comment) => {
-    const template = `
-    <li class="social__comment">
-      <img
-          class="social__picture"
-          src="${comment.avatar}"
-          alt="${comment.name}"
-          width="35" height="35">
-      <p class="social__text">${comment.message}</p>
-    </li>`;
-
-    commentsWrapper.insertAdjacentHTML('beforeend', template);
+    const element = template.cloneNode(true);
+    element.querySelector('.social__picture').src = comment.avatar;
+    element.querySelector('.social__picture').alt = comment.name;
+    element.querySelector('.social__text').textContent = comment.message;
+    fragment.appendChild(element);
   });
-  bigPicture.querySelector('.social__caption').textContent = image.description;
-  bigPicture.querySelector('.social__comment-count').classList.add('hidden');
-  bigPicture.querySelector('.comments-loader').classList.add('hidden');
+  commentsWrapper.textContent = '';
+  commentsWrapper.appendChild(fragment);
+
+  socialCaption.textContent = image.description;
+  socialCommentCount.classList.add('hidden');
+  commentsLoader.classList.add('hidden');
   document.body.classList.add('modal-open');
 
-  const close = () => {
+  const closeBigPictureHandler = () => {
     bigPicture.classList.add('hidden');
     document.body.classList.remove('modal-open');
   };
 
-  document.querySelector('.big-picture__cancel').addEventListener('click', close);
+  document.querySelector('.big-picture__cancel').addEventListener('click', closeBigPictureHandler);
 
   document.addEventListener('keydown', (event) => {
     if (event.code === 'Escape') {
-      close();
+      closeBigPictureHandler();
     }
   });
 };
