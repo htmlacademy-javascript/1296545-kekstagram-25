@@ -1,4 +1,4 @@
-import {viewingFullScreen} from './fullscreen.js';
+import {showFullScreen} from './fullscreen.js';
 
 export const createTemplatePicture = (images) => {
   const wrapper =  document.querySelector('#picture');
