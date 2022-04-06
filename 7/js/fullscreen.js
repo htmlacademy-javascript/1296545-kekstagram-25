@@ -10,15 +10,16 @@ const commentsLoader = bigPicture.querySelector('.comments-loader');
 const closeBigPictureHandler = () => {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  document.querySelector('.big-picture__cancel').removeEventListener('click', closeBigPictureHandler);
+
+  document.removeEventListener('keydown', clickOnEscHandler);
 };
 
-document.addEventListener('keydown', (event) => {
+function clickOnEscHandler (event) {
   if (event.code === 'Escape') {
     closeBigPictureHandler();
   }
-});
-
-document.querySelector('.big-picture__cancel').addEventListener('click', closeBigPictureHandler);
+}
 
 export const showFullScreen = (image) => {
 
@@ -44,6 +45,10 @@ export const showFullScreen = (image) => {
   socialCommentCount.classList.add('hidden');
   commentsLoader.classList.add('hidden');
   document.body.classList.add('modal-open');
+
+  document.querySelector('.big-picture__cancel').addEventListener('click', closeBigPictureHandler);
+
+  document.addEventListener('keydown', clickOnEscHandler);
 };
 
 
