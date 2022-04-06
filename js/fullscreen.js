@@ -7,7 +7,7 @@ const commentsWrapper = bigPicture.querySelector('.social__comments');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 
-export const viewingFullScreen = (image) => {
+export const showFullScreen = (image) => {
 
   bigPicture.classList.remove('hidden');
   bigPictureImg.src = image.url;

@@ -13,7 +13,7 @@ export const createTemplatePicture = (images) => {
     element.querySelector('.picture__comments').textContent = image.comments.length;
 
     element.addEventListener('click', () => {
-      viewingFullScreen(image);
+      showFullScreen(image);
     });
 
     fragment.appendChild(element);
