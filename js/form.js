@@ -1,46 +1,69 @@
-const uploadImage = document.getElementById('upload-file');
-const previewImg = document.querySelector('.img-upload__preview img');
-const changeImageForm = document.querySelector('.img-upload__overlay');
-const closeButton = document.querySelector('#upload-cancel');
-const form = document.getElementById('upload-select-image');
-let isCanCloseForm = true;
+window.onload = () => {
+  const uploadImage = document.getElementById('upload-file');
+  const previewImg = document.querySelector('.img-upload__preview img');
+  const changeImageForm = document.querySelector('.img-upload__overlay');
+  const closeButton = document.querySelector('#upload-cancel');
+  const form = document.getElementById('upload-select-image');
+  const hashtagsElement = form.querySelector('.text__hashtags');
+  let isCanCloseForm = true;
+  const pristine = new Pristine(form);
+  pristine.addValidator(hashtagsElement, (value) => {
+    const newHashtags = [];
+    const hashtagsValue = value.trim().split(' ');
+    const regx = /^(^#[A-Za-zА-Яа-яё0-9]{1,19})$/;
+    let isValid = true;
 
-const closeChangeImageFormHandler = () => {
-  if(isCanCloseForm) {
-    changeImageForm.classList.add('hidden');
-    document.body.classList.remove('modal-open');
+    if (hashtagsValue.length > 5) {
+      isValid = false;
+    }
+    hashtagsValue.forEach((hashtag) => {
+      if (!regx.test(hashtag)) {
+        isValid = false;
+      }
+      if (newHashtags.map((item) => item.toLowerCase().trim()).indexOf(hashtag.toLowerCase().trim()) !== -1) {
+        isValid = false;
+      }
+      newHashtags.push(hashtag);
+    });
 
-    closeButton.removeEventListener('click', closeChangeImageFormHandler);
-    document.removeEventListener('keydown', clickOnEscHandler);
-    form.hashtags.removeEventListener('focus', prohibitClose);
-    form.hashtags.removeEventListener('blur', allowClose);
-    form.description.removeEventListener('focus', prohibitClose);
-    form.description.removeEventListener('blur', allowClose);
+    return isValid;
+  });
+
+  const closeChangeImageFormHandler = () => {
+    if (isCanCloseForm) {
+      changeImageForm.classList.add('hidden');
+      document.body.classList.remove('modal-open');
+
+      closeButton.removeEventListener('click', closeChangeImageFormHandler);
+      document.removeEventListener('keydown', clickOnEscHandler);
+      form.hashtags.removeEventListener('focus', prohibitClose);
+      form.hashtags.removeEventListener('blur', allowClose);
+      form.description.removeEventListener('focus', prohibitClose);
+      form.description.removeEventListener('blur', allowClose);
+    }
+  };
+
+  function clickOnEscHandler(event) {
+    if (event.code === 'Escape') {
+      closeChangeImageFormHandler();
+    }
   }
-};
 
-function clickOnEscHandler (event) {
-  if (event.code === 'Escape') {
-    closeChangeImageFormHandler();
+  function allowClose() {
+    isCanCloseForm = true;
   }
-}
 
-function allowClose () {
-  isCanCloseForm = true;
-}
+  function prohibitClose() {
+    isCanCloseForm = false;
+  }
 
-function prohibitClose () {
-  isCanCloseForm = false;
-}
-
-export const uploadFile = () => {
-  uploadImage.addEventListener('change', function() {
-    if (this.files && this.files[0]) {
+  uploadImage.addEventListener('change', () => {
+    if (uploadImage.files && uploadImage.files[0]) {
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = (e) => {
         previewImg.src = e.target.result;
       };
-      reader.readAsDataURL(this.files[0]);
+      reader.readAsDataURL(uploadImage.files[0]);
       changeImageForm.classList.remove('hidden');
       document.body.classList.add('modal-open');
     }
@@ -54,28 +77,7 @@ export const uploadFile = () => {
   });
 
   form.addEventListener('submit', (event) => {
-    let isValid = true;
-    const newHashtags = [];
-    const hashtags = form.hashtags.value.trim().split(' ');
-    const regx = /^(^#[A-Za-zА-Яа-яё0-9]{1,19})$/;
-
-    if(hashtags.length > 5 || form.description.value.length > 140) {
-      isValid = false;
-    }
-
-    hashtags.forEach((hashtag) => {
-      if(hashtag === '#') {
-        isValid = false;
-      }
-      if(!regx.test(hashtag)) {
-        isValid = false;
-      }
-      if(newHashtags.map((item) => item.toLowerCase().trim()).indexOf(hashtag.toLowerCase().trim()) !== -1) {
-        isValid = false;
-      }
-      newHashtags.push(hashtag);
-    });
-
+    const isValid = pristine.validate();
     if(!isValid) {
       event.preventDefault();
     }
