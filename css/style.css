@@ -697,6 +697,10 @@ main {
   border-radius: 5px;
 }
 
+.text__error-text {
+  font-size: 10px;
+}
+
 
 /**
  * Кнопка для отправки изображения
