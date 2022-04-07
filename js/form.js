@@ -5,29 +5,47 @@ window.onload = () => {
   const closeButton = document.querySelector('#upload-cancel');
   const form = document.getElementById('upload-select-image');
   const hashtagsElement = form.querySelector('.text__hashtags');
+  const descriptionElement = form.querySelector('.text__description');
   let isCanCloseForm = true;
-  const pristine = new Pristine(form);
+  const pristine = new Pristine(form, {
+    classTo: 'text__element',
+    errorTextParent: 'text__element',
+    errorTextClass: 'text__error-text',
+  });
+
+  pristine.addValidator(hashtagsElement, (value) => {
+    const hashtagsValue = value.trim().split(' ');
+    return hashtagsValue.length <= 5;
+  }, 'Максимальное количество хештегов 5', 1, false);
+
   pristine.addValidator(hashtagsElement, (value) => {
     const newHashtags = [];
     const hashtagsValue = value.trim().split(' ');
-    const regx = /^(^#[A-Za-zА-Яа-яё0-9]{1,19})$/;
     let isValid = true;
-
-    if (hashtagsValue.length > 5) {
-      isValid = false;
-    }
     hashtagsValue.forEach((hashtag) => {
-      if (!regx.test(hashtag)) {
-        isValid = false;
-      }
       if (newHashtags.map((item) => item.toLowerCase().trim()).indexOf(hashtag.toLowerCase().trim()) !== -1) {
         isValid = false;
       }
       newHashtags.push(hashtag);
     });
-
     return isValid;
-  });
+  }, 'Удалите повторяющиеся хештеги', 2, false);
+
+  pristine.addValidator(hashtagsElement, (value) => {
+    const hashtagsValue = value.trim().split(' ');
+    const regx = /^(^#[A-Za-zА-Яа-яё0-9]{1,19})$/;
+    let isValid = true;
+
+    hashtagsValue.forEach((hashtag) => {
+      if (!regx.test(hashtag)) {
+        isValid = false;
+      }
+    });
+    return isValid;
+  }, 'Строка после # должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;'
+  , 3, false);
+
+  pristine.addValidator(descriptionElement, (value) =>  value.length <= 140, 'Максимальное количество символов 140', 1, false);
 
   const closeChangeImageFormHandler = () => {
     if (isCanCloseForm) {
@@ -78,7 +96,7 @@ window.onload = () => {
 
   form.addEventListener('submit', (event) => {
     const isValid = pristine.validate();
-    if(!isValid) {
+    if (!isValid) {
       event.preventDefault();
     }
   });
