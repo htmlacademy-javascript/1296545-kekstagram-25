@@ -4,14 +4,17 @@ const likesCount = bigPicture.querySelector('.likes-count');
 const commentsCount = bigPicture.querySelector('.comments-count');
 const socialCaption = bigPicture.querySelector('.social__caption');
 const commentsWrapper = bigPicture.querySelector('.social__comments');
-const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const commentLoaderButton = document.querySelector('.comments-loader');
+const loadedCountElement = document.querySelector('.loaded-count');
 let totalComments = [];
 let totalCommentsShowCount = 0;
 
 const closeBigPictureHandler = () => {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
+
+  totalComments = [];
+  totalCommentsShowCount = 0;
 
   document.querySelector('.big-picture__cancel').removeEventListener('click', closeBigPictureHandler);
   document.removeEventListener('keydown', clickOnEscHandler);
@@ -40,15 +43,16 @@ function renderComments (comments) {
 }
 
 function loadComment () {
+  commentLoaderButton.classList.remove('hidden');
   let commentLoaded = totalComments;
   if(commentLoaded.length <= 5) {
     commentLoaderButton.classList.add('hidden');
     totalCommentsShowCount = commentLoaded.length;
   } else {
     totalCommentsShowCount = commentLoaded.length > totalCommentsShowCount + 5 ? totalCommentsShowCount + 5 : commentLoaded.length;
-    socialCommentCount.textContent = totalCommentsShowCount;
     commentLoaded = totalComments.slice(0, totalCommentsShowCount);
   }
+  loadedCountElement.textContent = totalCommentsShowCount;
   if(totalCommentsShowCount === totalComments.length) {
     commentLoaderButton.classList.add('hidden');
   }
