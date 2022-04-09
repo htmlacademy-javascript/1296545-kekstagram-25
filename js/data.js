@@ -32,7 +32,7 @@ const getRandomArrayElement = (array) => array[getRandomInt(0, array.length - 1)
 
 const createRandomComment = (_elem, id) => ({
   id: String(++id).padStart(2, '0'),
-  avatar: `img/avatar/${getRandomInt(1, 6).toString()}.svg`,
+  avatar: `img/avatar-${getRandomInt(1, 6).toString()}.svg`,
   message: getRandomArrayElement(ARRAY_TEXT_COMMENTS),
   name: getRandomArrayElement(USERS_NAMES),
 });
