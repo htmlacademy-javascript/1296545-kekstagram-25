@@ -30,6 +30,8 @@ const increaseSizeHandler = () => {
 };
 
 export const startResize = () => {
+  resizeValue.value = '100%';
+  image.style.transform = 'scale(1)';
   smallerControl.addEventListener('click', reduceSizeHandler);
   biggerControl.addEventListener('click', increaseSizeHandler);
 };
