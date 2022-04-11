@@ -1,6 +1,7 @@
 const rangeElement = document.querySelector('.effect-level__slider');
 const effectValue = document.querySelector('.effect-level__value');
 const image = document.querySelector('.img-upload__preview img');
+const rangeField = document.querySelector('.img-upload__effect-level');
 
 const none = document.querySelector('.effects__preview--none');
 const chrome = document.querySelector('.effects__preview--chrome');
@@ -11,25 +12,34 @@ const heat = document.querySelector('.effects__preview--heat');
 
 let currentEffect = 'none';
 
+noUiSlider.create(rangeElement, {
+  start: 100,
+  step: 1,
+  range: {
+    min: 0,
+    max: 100
+  }
+});
+
 const noneEffectHandler = () => {
   image.classList = '';
   effectValue.value = 100;
   rangeElement.noUiSlider.reset();
   image.style.filter = 'none';
-  rangeElement.classList.add('hidden');
+  rangeField.classList.add('hidden');
 };
 
 const chromeEffectHandler = () => {
   image.classList.add('effects__preview--chrome');
   effectValue.value = 1;
   currentEffect = 'chrome';
-  rangeElement.classList.remove('hidden');
+  rangeField.classList.remove('hidden');
   rangeElement.noUiSlider.updateOptions({
     start: 1,
     step: 0.1,
     range: {
-      'min': 0,
-      'max': 1
+      min: 0,
+      max: 1
     }
   });
 };
@@ -38,13 +48,13 @@ const sepiaEffectHandler = () => {
   image.classList.add('effects__preview--sepia');
   effectValue.value = 1;
   currentEffect = 'sepia';
-  rangeElement.classList.remove('hidden');
+  rangeField.classList.remove('hidden');
   rangeElement.noUiSlider.updateOptions({
     start: 1,
     step: 0.1,
     range: {
-      'min': 0,
-      'max': 1
+      min: 0,
+      max: 1
     }
   });
 };
@@ -53,13 +63,13 @@ const marvinEffectHandler = () => {
   image.classList.add('effects__preview--marvin');
   effectValue.value = 100;
   currentEffect = 'marvin';
-  rangeElement.classList.remove('hidden');
+  rangeField.classList.remove('hidden');
   rangeElement.noUiSlider.updateOptions({
     start: 100,
     step: 1,
     range: {
-      'min': 0,
-      'max': 100
+      min: 0,
+      max: 100
     }
   });
 };
@@ -68,13 +78,13 @@ const phobosEffectHandler = () => {
   image.classList.add('effects__preview--phobos');
   effectValue.value = 3;
   currentEffect = 'phobos';
-  rangeElement.classList.remove('hidden');
+  rangeField.classList.remove('hidden');
   rangeElement.noUiSlider.updateOptions({
     start: 3,
     step: 0.1,
     range: {
-      'min': 0,
-      'max': 3
+      min: 0,
+      max: 3
     }
   });
 };
@@ -83,15 +93,38 @@ const heatEffectHandler = () => {
   image.classList.add('effects__preview--heat');
   effectValue.value = 3;
   currentEffect = 'heat';
-  rangeElement.classList.remove('hidden');
+  rangeField.classList.remove('hidden');
   rangeElement.noUiSlider.updateOptions({
     start: 3,
     step: 0.1,
     range: {
-      'min': 0,
-      'max': 3
+      min: 1,
+      max: 3
     }
   });
+};
+
+const changeStyleHandler = () => {
+  effectValue.value = rangeElement.noUiSlider.get();
+  switch (currentEffect) {
+    case 'chrome':
+      image.style.filter = `grayscale(${effectValue.value})`;
+      break;
+    case 'sepia':
+      image.style.filter = `sepia(${effectValue.value})`;
+      break;
+    case 'marvin':
+      image.style.filter = `invert(${effectValue.value}%)`;
+      break;
+    case 'phobos':
+      image.style.filter = `blur(${effectValue.value}px)`;
+      break;
+    case 'heat':
+      image.style.filter = `brightness(${effectValue.value})`;
+      break;
+    default:
+      image.style.filter = 'none';
+  }
 };
 
 export const stopStyles = () => {
@@ -101,42 +134,25 @@ export const stopStyles = () => {
   marvin.removeEventListener('click', marvinEffectHandler);
   phobos.removeEventListener('click', phobosEffectHandler);
   heat.removeEventListener('click', heatEffectHandler);
+  rangeElement.noUiSlider.off('update');
 };
 
 export const startStyles = () => {
-  effectValue.value = 100;
-
-  noUiSlider.create(rangeElement, {
+  rangeElement.noUiSlider.updateOptions({
     start: 100,
     step: 1,
     range: {
-      'min': 0,
-      'max': 100
+      min: 0,
+      max: 100
     }
   });
+  image.style.filter = 'none';
+  image.classList = '';
+  effectValue.value = 100;
+  rangeField.classList.add('hidden');
+  currentEffect = 'none';
 
-  rangeElement.noUiSlider.on('update', () => {
-    effectValue.value = rangeElement.noUiSlider.get();
-    switch (currentEffect) {
-      case 'chrome':
-        image.style.filter = `grayscale(${effectValue.value})`;
-        break;
-      case 'sepia':
-        image.style.filter = `sepia(${effectValue.value})`;
-        break;
-      case 'marvin':
-        image.style.filter = `invert(${effectValue.value}%)`;
-        break;
-      case 'phobos':
-        image.style.filter = `blur(${effectValue.value}px)`;
-        break;
-      case 'heat':
-        image.style.filter = `brightness(${effectValue.value})`;
-        break;
-      default:
-        image.style.filter = 'none';
-    }
-  });
+  rangeElement.noUiSlider.on('update', changeStyleHandler);
 
   none.addEventListener('click', noneEffectHandler);
   chrome.addEventListener('click', chromeEffectHandler);
