@@ -18,7 +18,17 @@ noUiSlider.create(rangeElement, {
   range: {
     min: 0,
     max: 100
-  }
+  },
+  connect: 'lower',
+  format: {
+    to: (value) => {
+      if (Number.isInteger(value)) {
+        return value.toFixed(0);
+      }
+      return value.toFixed(1);
+    },
+    from: (value) => parseFloat(value),
+  },
 });
 
 const noneEffectHandler = () => {
