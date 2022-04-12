@@ -1,4 +1,6 @@
 import {checkStringLength} from './util.js';
+import {startResize, stopResize} from './resize.js';
+import {startStyles, stopStyles} from './styles.js';
 
 const uploadImage = document.getElementById('upload-file');
 const previewImg = document.querySelector('.img-upload__preview img');
@@ -55,6 +57,8 @@ const closeChangeImageFormHandler = () => {
     changeImageForm.classList.add('hidden');
     document.body.classList.remove('modal-open');
 
+    stopResize();
+    stopStyles();
     closeButton.removeEventListener('click', closeChangeImageFormHandler);
     document.removeEventListener('keydown', clickOnEscHandler);
     form.hashtags.removeEventListener('focus', prohibitClose);
@@ -88,7 +92,8 @@ uploadImage.addEventListener('change', () => {
     changeImageForm.classList.remove('hidden');
     document.body.classList.add('modal-open');
   }
-
+  startStyles();
+  startResize();
   closeButton.addEventListener('click', closeChangeImageFormHandler);
   document.addEventListener('keydown', clickOnEscHandler);
   form.hashtags.addEventListener('focus', prohibitClose);
