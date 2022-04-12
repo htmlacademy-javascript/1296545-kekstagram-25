@@ -1,8 +1,6 @@
-import {createDescriptionPhotos, NUMBER_PHOTO_OBJECTS} from './data.js';
-import {createTemplatePicture} from './thumbnail.js';
+import { createTemplatePicture } from './thumbnail.js';
+import { getData } from './load.js';
+import { showAlert } from './util.js';
 import './form.js';
 
-const images = createDescriptionPhotos(NUMBER_PHOTO_OBJECTS);
-createTemplatePicture(images);
-
-
+getData(createTemplatePicture, showAlert);
