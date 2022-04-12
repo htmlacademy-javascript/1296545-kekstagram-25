@@ -1,6 +1,8 @@
-import {checkStringLength} from './util.js';
-import {startResize, stopResize} from './resize.js';
-import {startStyles, stopStyles} from './styles.js';
+import { checkStringLength } from './util.js';
+import { startResize, stopResize } from './resize.js';
+import { startStyles, stopStyles } from './styles.js';
+import { sendData } from './load.js';
+import { onFail, onSuccess } from './notification.js';
 
 const uploadImage = document.getElementById('upload-file');
 const previewImg = document.querySelector('.img-upload__preview img');
@@ -9,6 +11,8 @@ const closeButton = document.querySelector('#upload-cancel');
 const form = document.getElementById('upload-select-image');
 const hashtagsElement = form.querySelector('.text__hashtags');
 const descriptionElement = form.querySelector('.text__description');
+const submitButton = document.getElementById('upload-submit');
+
 let isCanCloseForm = true;
 const pristine = new Pristine(form, {
   classTo: 'text__element',
@@ -37,20 +41,21 @@ pristine.addValidator(hashtagsElement, (value) => {
 }, 'Удалите повторяющиеся хештеги', 2, false);
 
 pristine.addValidator(hashtagsElement, (value) => {
-  const hashtagsValue = splitAndTrimString(value);
+  const hashtagsValue = value ? splitAndTrimString(value) : [];
   const regx = /^(^#[A-Za-zА-Яа-яё0-9]{1,19})$/;
   let isValid = true;
-
-  hashtagsValue.forEach((hashtag) => {
-    if (!regx.test(hashtag)) {
-      isValid = false;
-    }
-  });
+  if (hashtagsValue.length) {
+    hashtagsValue.forEach((hashtag) => {
+      if (!regx.test(hashtag)) {
+        isValid = false;
+      }
+    });
+  }
   return isValid;
 }, 'Строка после # должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;'
 , 3, false);
 
-pristine.addValidator(descriptionElement, (value) => checkStringLength(value.length, 140), 'Максимальное количество символов 140', 1, false);
+pristine.addValidator(descriptionElement, (value) => !checkStringLength(value.length, 140), 'Максимальное количество символов 140', 1, false);
 
 const closeChangeImageFormHandler = () => {
   if (isCanCloseForm) {
@@ -65,6 +70,7 @@ const closeChangeImageFormHandler = () => {
     form.hashtags.removeEventListener('blur', allowClose);
     form.description.removeEventListener('focus', prohibitClose);
     form.description.removeEventListener('blur', allowClose);
+    form.reset();
   }
 };
 
@@ -102,9 +108,33 @@ uploadImage.addEventListener('change', () => {
   form.description.addEventListener('blur', allowClose);
 });
 
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Сохраняю...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
 form.addEventListener('submit', (event) => {
+  event.preventDefault();
   const isValid = pristine.validate();
-  if (!isValid) {
-    event.preventDefault();
+  if (isValid) {
+    blockSubmitButton();
+    sendData(
+      () => {
+        closeChangeImageFormHandler();
+        onSuccess();
+        unblockSubmitButton();
+      },
+      () => {
+        closeChangeImageFormHandler();
+        onFail();
+        unblockSubmitButton();
+      },
+      new FormData(event.target),
+    );
   }
 });
