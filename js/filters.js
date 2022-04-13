@@ -41,23 +41,25 @@ const setFilterDiscussed = () => {
   createTemplatePicture(sortImages);
 };
 
+const setFilterHandler = (event) => {
+  switch (event.target) {
+    case defaultButton:
+      setFilterDefault();
+      break;
+    case randomButton:
+      setFilterRandom();
+      break;
+    case discussedButton:
+      setFilterDiscussed();
+      break;
+    default:
+      setFilterDefault();
+  }
+};
+
 export const openFilters = (items) => {
   images = items;
   filters.classList.remove('img-filters--inactive');
 
-  buttonsWrapper.addEventListener('click', debounce((event) => {
-    switch (event.target) {
-      case defaultButton:
-        setFilterDefault();
-        break;
-      case randomButton:
-        setFilterRandom();
-        break;
-      case discussedButton:
-        setFilterDiscussed();
-        break;
-      default:
-        setFilterDefault();
-    }
-  }), RERENDER_DELAY);
+  buttonsWrapper.addEventListener('click', debounce(setFilterHandler, RERENDER_DELAY));
 };
