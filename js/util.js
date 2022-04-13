@@ -1,7 +1,7 @@
 const ALERT_SHOW_TIME = 5000;
 
 const getRandomInt = (min, max) => {
-  if (min < 0 || min === max || min > max){
+  if (min < 0 || min === max || min > max) {
     throw new Error('Переданные числа некорректны');
   }
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -30,8 +30,33 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+const getRandomArrayElements = (elements, number) => {
+  const result = new Array(number);
+  let len = elements.length;
+  const taken = new Array(len);
+  if (number > len) {
+    return elements;
+  }
+  while (number--) {
+    const x = Math.floor(Math.random() * len);
+    result[number] = elements[x in taken ? taken[x] : x];
+    taken[x] = --len in taken ? taken[len] : len;
+  }
+  return result;
+};
+
 export {
   getRandomInt,
   checkStringLength,
-  showAlert
+  showAlert,
+  debounce,
+  getRandomArrayElements
 };
