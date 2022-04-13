@@ -1,5 +1,7 @@
 import { getRandomInt } from './util.js';
 
+const NUMBER_PHOTO_OBJECTS = 25;
+
 const ARRAY_TEXT_COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -36,8 +38,6 @@ const createRandomComment = (_elem, id) => ({
   message: getRandomArrayElement(ARRAY_TEXT_COMMENTS),
   name: getRandomArrayElement(USERS_NAMES),
 });
-
-const NUMBER_PHOTO_OBJECTS = 25;
 
 const getPathPhoto = (n) => `photos/${n.toString()}.jpg`;
 

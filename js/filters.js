@@ -1,14 +1,15 @@
 import { getRandomArrayElements, debounce } from './util.js';
 import { createTemplatePicture } from './thumbnail.js';
 
+const RERENDER_DELAY = 500;
+const RUNDOM_COUNT = 10;
+
 const filters = document.querySelector('.img-filters');
 const buttonsWrapper = document.querySelector('.img-filters__form');
 const defaultButton = document.getElementById('filter-default');
 const randomButton = document.getElementById('filter-random');
 const discussedButton = document.getElementById('filter-discussed');
 const filtersButtons = document.querySelectorAll('.img-filters__button');
-const RERENDER_DELAY = 500;
-const RUNDOM_COUNT = 10;
 let images = [];
 
 const clearPictures = () => {
