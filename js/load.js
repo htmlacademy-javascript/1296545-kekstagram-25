@@ -1,4 +1,7 @@
-export const getData = (onSuccess, onError) => fetch('https://25.javascript.pages.academy/kekstagram/data')
+const GET_DATA_API = 'https://25.javascript.pages.academy/kekstagram/data';
+const SEND_DATA_API = 'https://25.javascript.pages.academy/kekstagram';
+
+export const getData = (onSuccess, onError) => fetch(GET_DATA_API)
   .then((response) => {
     if (response.ok) {
       return response.json();
@@ -16,7 +19,7 @@ export const getData = (onSuccess, onError) => fetch('https://25.javascript.page
 
 export const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://25.javascript.pages.academy/kekstagram',
+    SEND_DATA_API,
     {
       method: 'POST',
       body,

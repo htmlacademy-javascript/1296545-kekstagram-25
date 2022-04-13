@@ -23,7 +23,7 @@ const USERS_NAMES = [
   'Семен',
 ];
 
-const PHOTO_DESCRIPTION = [
+const PHOTO_DESCRIPTIONS = [
   'Передо мной интересная (удачная, занимательная и т.п.) фотография.',
   'Давайте рассмотрим изображение внимательнее.',
   'Я считаю, что снимок получился (смешным, занимательным, удачным, завораживающим и т.д.)',
@@ -46,7 +46,7 @@ const createObjectsDescriptionPhoto = (obId) => {
   const obPhoto = {
     id: obId,
     url: getPathPhoto(obId),
-    description: PHOTO_DESCRIPTION[getRandomInt(0, 3)],
+    description: PHOTO_DESCRIPTIONS[getRandomInt(0, 3)],
     likes: getRandomInt(15, 200),
     comments: Array.from({
       length: NunberComments,

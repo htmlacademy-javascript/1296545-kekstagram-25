@@ -55,7 +55,7 @@ pristine.addValidator(hashtagsElement, (value) => {
 }, 'Строка после # должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;'
 , 3, false);
 
-pristine.addValidator(descriptionElement, (value) => !checkStringLength(value.length, 140), 'Максимальное количество символов 140', 1, false);
+pristine.addValidator(descriptionElement, (value) => checkStringLength(value, 140), 'Максимальное количество символов 140', 1, false);
 
 const closeChangeImageFormHandler = () => {
   if (isCanCloseForm) {
